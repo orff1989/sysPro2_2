@@ -8,6 +8,21 @@
 using namespace std;
 
 namespace ariel{
+    class Page{
+    public:
+        vector<vector<char>> v;
+        int num;
+        Page() {
+            cout<<"creating page";
+            v.resize(10);
+//            for (int i = 0; i <10 ; ++i) {
+//                v[i].resize(10);
+//                for (int j = 0; j < 10; ++j){
+//                    v[i][j]='b';
+//                }
+//            }
+        }
+    };
 
     class Notebook {
     public:
@@ -26,7 +41,7 @@ namespace ariel{
         void show(int page);
 
     };
-    }
+}
 
 
 

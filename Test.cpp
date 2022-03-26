@@ -12,9 +12,9 @@ ariel::Notebook notebook;
 
 TEST_CASE("Good input") {
 
-//    notebook.write(/*page=*/0, /*row=*/0, /*column=*/0, Direction::Horizontal, "hello there!");
-//    ans = notebook.read(/*page=*/0, /*row=*/0, /*column=*/0, Direction::Horizontal, /*length=*/12);
-//    CHECK(ans == "hello there!");
+    notebook.write(/*page=*/0, /*row=*/0, /*column=*/0, Direction::Horizontal, "hello there!");
+    ans = notebook.read(/*page=*/0, /*row=*/0, /*column=*/0, Direction::Horizontal, /*length=*/12);
+    CHECK(ans == "hello there!");
 
 //    notebook.write(/*page=*/0, /*row=*/1, /*column=*/1, Direction::Horizontal, "my name is Or");
 //    ans = notebook.read(/*page=*/0, /*row=*/1, /*column=*/1, Direction::Horizontal, /*length=*/13);

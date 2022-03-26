@@ -1,15 +1,18 @@
+
 #include "Notebook.hpp"
 #include <iostream>
 
 using namespace std;
-
+using namespace ariel;
 using ariel::Direction;
+
 
 void ariel::Notebook::write(int page, int row, int column, ariel::Direction direction, const std::string &str){
     //checking the parameters
     if(page<0 || row<0 || column<0 || str.find("~")!=string::npos) {throw "the parameters are not valid";}
     else if(column+int(str.size())>99) {throw "there is not enough space in the line for this word";}
-    //cout<<this->pages.front();
+    Page p;
+
 
 
 }

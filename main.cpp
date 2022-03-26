@@ -11,7 +11,7 @@ int main(){
 
     ariel::Notebook notebook;
 
-    //notebook.write(0,0,0,Direction::Horizontal,"hi");
+    notebook.write(0,0,0,Direction::Horizontal,"hi");
 
     return 0;
 }
