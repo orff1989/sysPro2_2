@@ -8,29 +8,35 @@
 using namespace std;
 
 namespace ariel{
+
     class Page{
     public:
         vector<vector<char>> v;
         int num;
-        Page() {
-            cout<<"creating page";
-            v.resize(10);
-//            for (int i = 0; i <10 ; ++i) {
-//                v[i].resize(10);
-//                for (int j = 0; j < 10; ++j){
-//                    v[i][j]='b';
-//                }
-//            }
+
+        Page(){}
+
+        Page(int n) {
+            this->num = n;
+            this->v.resize(10, vector<char>(100,'_'));
         }
+
+        void showPage();
+        void writeIn(size_t row, size_t column, ariel::Direction direction, const std::string &str);
+        string readIn(size_t row, size_t column, ariel::Direction direction, size_t len);
+
     };
 
     class Notebook {
     public:
-        list<int> pages;
+
+        vector<Page> pages;
+
         Notebook() {
-            for (int i = 0; i < 10; ++i)
-                pages.push_front(i);
+            for (int i = 0; i <10 ; ++i)
+            pages.push_back(Page(i));
         }
+        void increase_Pages(size_t num);
 
         void write(int page, int row, int column, ariel::Direction direction, const std::string &str);
 
