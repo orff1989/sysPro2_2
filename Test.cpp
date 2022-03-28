@@ -1,5 +1,5 @@
 #include "doctest.h"
-#include "Notebook.hpp"
+#include "sources/Notebook.hpp"
 #include "Direction.hpp"
 using ariel::Direction;
 
@@ -55,8 +55,8 @@ TEST_CASE("Good input") {
     CHECK(ans == "t~is is c++");
 
     notebook.write(/*page=*/56, /*row=*/114, /*column=*/5, Direction::Vertical, "this is c++");
-//    ans = notebook.read(/*page=*/56, /*row=*/114, /*column=*/5, Direction::Vertical, /*length=*/11);
-//    CHECK(ans == "this is c++");
+    ans = notebook.read(/*page=*/56, /*row=*/114, /*column=*/5, Direction::Vertical, /*length=*/11);
+    CHECK(ans == "this is c++");
 
 }
 
