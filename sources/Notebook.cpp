@@ -67,16 +67,21 @@ void ariel::Notebook::increase_Pages(size_t num){
 void ariel::Notebook::write(int page, int row, int column, ariel::Direction direction, const std::string &str){
     //checking the parameters
     if(page<0 || row<0 || column<0 || str.find('~')!=string::npos) {throw "the parameters are not valid";}
-    if(column+int(str.size())>LIMIT) {throw "there is not enough space in the line for this word";}
+    if(column+int(str.size())>LIMIT && direction==Direction::Horizontal) {throw "there is not enough space in the line for this word";}
 
     // if we need to resize the number of pages
     if (page >= this->pages.size()){
         increase_Pages(size_t(page));
     }
+    // if there is no space to write the string vertically
+    if(size_t(row)+str.length()>this->pages[size_t(page)].v.size() && direction==Direction::Vertical){
+        this->pages[size_t(page)].increase_Rows(size_t(row)+str.length()+ADDITION);
+    }
     //if we need to resize the number of rows
     if (row>=this->pages[size_t(page)].v.size()){
         this->pages[size_t(page)].increase_Rows(size_t(row)+ADDITION);
     }
+
 
     string str1 = this->pages[size_t(page)].readIn(size_t(row),size_t(column),direction,str.length());
     for (size_t i = 0; i < str1.size(); ++i) {
@@ -92,6 +97,10 @@ const string& ariel::Notebook::read(int page, int row, int column, ariel::Direct
     // if we need to resize the number of pages
     if (page >= this->pages.size()){
         increase_Pages(size_t(page));
+    }
+    // if there is no space to write the string vertically
+    if(size_t(row)+size_t(length) > this->pages[size_t(page)].v.size() && direction==Direction::Vertical){
+        this->pages[size_t(page)].increase_Rows(size_t(row)+size_t(length) + ADDITION);
     }
     //if we need to resize the number of rows
     if (row>=this->pages[size_t(page)].v.size()){
@@ -110,6 +119,10 @@ void ariel::Notebook::erase(int page, int row, int column, Direction direction, 
     // if we need to resize the number of pages
     if (page >= this->pages.size()){
         increase_Pages(size_t(page));
+    }
+    // if there is no space to write the string vertically
+    if(size_t(row)+size_t(length) > this->pages[size_t(page)].v.size() && direction==Direction::Vertical){
+        this->pages[size_t(page)].increase_Rows(size_t(row)+size_t(length) + ADDITION);
     }
     //if we need to resize the number of rows
     if (row>=this->pages[size_t(page)].v.size()){
