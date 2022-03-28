@@ -38,6 +38,7 @@ namespace ariel{
         Notebook() {
             increase_Pages(10);
         }
+
         void increase_Pages(size_t num);
 
         void write(int page, int row, int column, ariel::Direction direction, const std::string &str);
