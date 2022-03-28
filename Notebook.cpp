@@ -14,6 +14,7 @@ void ariel::Page::showPage() {
             cout<<v[i][j];
         cout<<endl;
     }
+    cout<<endl;
 }
 
 void ariel::Page::writeIn(size_t row, size_t column, ariel::Direction direction, const std::string &str) {
@@ -41,13 +42,15 @@ string ariel::Page::readIn(size_t row, size_t column, ariel::Direction direction
     return ans;
 }
 
-
+void ariel::Page::increase_Rows(size_t n) {
+    this->v.resize(n+10, vector<char>(100,'_'));
+}
 
 /////////////// NOTEBOOK /////////////////////
 
 void ariel::Notebook::increase_Pages(size_t num){
     for (int i = this->pages.size(); i < num; i++) {
-        this->pages.push_back(i);
+        this->pages.push_back(Page(i));
     }
 }
 
@@ -56,8 +59,13 @@ void ariel::Notebook::write(int page, int row, int column, ariel::Direction dire
     if(page<0 || row<0 || column<0 || str.find("~")!=string::npos) {throw "the parameters are not valid";}
     else if(column+int(str.size())>99) {throw "there is not enough space in the line for this word";}
 
+    // if we need to resize the number of pages
     if (page >= this->pages.size()){
         increase_Pages(size_t(page)+10);
+    }
+    //if we need to resize the number of rows
+    if (row>=this->pages[size_t(page)].v.size()){
+        this->pages[size_t(page)].increase_Rows(size_t(row)+10);
     }
 
     string str1 = this->pages[size_t(page)].readIn(size_t(row),size_t(column),direction,str.length());

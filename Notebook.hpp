@@ -18,13 +18,16 @@ namespace ariel{
 
         Page(int n) {
             this->num = n;
-            this->v.resize(10, vector<char>(100,'_'));
+            this->v.resize(100, vector<char>(100,'_'));
         }
 
         void showPage();
+
         void writeIn(size_t row, size_t column, ariel::Direction direction, const std::string &str);
+
         string readIn(size_t row, size_t column, ariel::Direction direction, size_t len);
 
+        void increase_Rows(size_t n);
     };
 
     class Notebook {
@@ -33,8 +36,7 @@ namespace ariel{
         vector<Page> pages;
 
         Notebook() {
-            for (int i = 0; i <10 ; ++i)
-            pages.push_back(Page(i));
+            increase_Pages(10);
         }
         void increase_Pages(size_t num);
 
