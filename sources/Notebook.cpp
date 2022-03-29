@@ -10,6 +10,15 @@ const size_t ADDITION = 10;
 const size_t COL =100;
 const size_t ROW =100;
 const size_t LIMIT=99;
+const size_t CHAR_LIMIT_UP=123;
+const size_t CHAR_LIMIT_DOWN=32;
+
+bool str_not_valid(string s){
+    for (size_t i = 0; i < s.length(); i++) {
+        if(int(s.at(i))>CHAR_LIMIT_UP || int(s.at(i))<CHAR_LIMIT_DOWN){return true;}
+    }
+    return false;
+}
 
 //////////////////////// PAGE ////////////////////////////
 
@@ -66,8 +75,8 @@ void ariel::Notebook::increase_Pages(size_t num){
 
 void ariel::Notebook::write(int page, int row, int column, ariel::Direction direction, const std::string &str){
     //checking the parameters
-    if(page<0 || row<0 || column<0 || str.find('~')!=string::npos) {throw "the parameters are not valid";}
-    if(column+int(str.size())>LIMIT && direction==Direction::Horizontal) {throw "there is not enough space in the line for this word";}
+    if(page<0 || row<0 || column<0 || str.find('~')!=string::npos|| column>LIMIT || str_not_valid(str)) {throw "the parameters are not valid";}
+    if(column+int(str.size())-1>LIMIT && direction==Direction::Horizontal) {throw "there is not enough space in the line for this word";}
 
     // if we need to resize the number of pages
     if (page >= this->pages.size()){
@@ -84,7 +93,7 @@ void ariel::Notebook::write(int page, int row, int column, ariel::Direction dire
 
 
     string str1 = this->pages[size_t(page)].readIn(size_t(row),size_t(column),direction,str.length());
-    for (size_t i = 0; i < str1.size(); ++i) {
+    for (size_t i = 0; i < str1.size(); i++) {
         if (str1.at(i) != '_') { throw "cant write on written space"; }
     }
 
@@ -92,7 +101,8 @@ void ariel::Notebook::write(int page, int row, int column, ariel::Direction dire
 }
 
 const string& ariel::Notebook::read(int page, int row, int column, ariel::Direction direction, int length){
-    if(page<0 || row<0 || column<0 || length<0 || column+length>LIMIT) {throw "the parameters are not valid";}
+    if(page<0 || row<0 || column<0 || length<0 || column>LIMIT) {throw "the parameters are not valid";}
+    if(column+length-1>LIMIT && direction==Direction::Horizontal) {throw "there is not enough space in the line for this word";}
 
     // if we need to resize the number of pages
     if (page >= this->pages.size()){
@@ -114,7 +124,8 @@ const string& ariel::Notebook::read(int page, int row, int column, ariel::Direct
 }
 
 void ariel::Notebook::erase(int page, int row, int column, Direction direction, int length){
-    if(page<0 || row<0 || column<0 || length<0 || column+length>LIMIT) {throw "the parameters are not valid";}
+    if(page<0 || row<0 || column<0 || length<0|| column>LIMIT) {throw "the parameters are not valid";}
+    if(column+length-1>LIMIT && direction==Direction::Horizontal) {throw "there is not enough space in the line for this word";}
 
     // if we need to resize the number of pages
     if (page >= this->pages.size()){
